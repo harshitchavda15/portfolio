@@ -353,17 +353,41 @@ if (window.innerWidth < 768) {
 // Loading Animation
 // ===========================
 window.addEventListener('load', () => {
-    // Remove any loading screen if exists
-    const loader = document.querySelector('.loader');
+    // Remove loading screen with fade out
+    const loader = document.getElementById('loader');
     if (loader) {
-        loader.style.opacity = '0';
         setTimeout(() => {
-            loader.style.display = 'none';
-        }, 500);
+            loader.classList.add('fade-out');
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }, 1500); // Show loader for at least 1.5 seconds
     }
     
     // Trigger initial animations
     document.body.classList.add('loaded');
+});
+
+// ===========================
+// Back to Top Button
+// ===========================
+const backToTopButton = document.getElementById('backToTop');
+
+// Show/hide back to top button based on scroll position
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('visible');
+    } else {
+        backToTopButton.classList.remove('visible');
+    }
+});
+
+// Smooth scroll to top when button is clicked
+backToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 });
 
 // ===========================
